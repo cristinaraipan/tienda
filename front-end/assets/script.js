@@ -3,14 +3,24 @@ let categorias = document.getElementById("categoria");
 let contenedor = document.getElementById("contenedor");
 let imagenNoEncontrada = "/img/image-not-found.png";
 
+function ordenar(a, b) {
+    if (a.name > b.name) {
+        return 1;
+    }
+    if (a.name < b.name) {
+        return -1;
+    }
+    return 0;
+}
 
 window.onload = iniciar();
 
 //funcion carga los productos en el div con id contenedor 
-async function cargarProductos (id) {
+async function cargarProductos(id) {
     axios.get(`/productos/${id}`).then((respuesta) => {
         contenedor.innerHTML = "";
-        respuesta.data.forEach(element => {
+        let listaOrdenada = respuesta.data.sort(ordenar)
+        listaOrdenada.forEach(element => {
             contenedor.innerHTML += `
             <div class="card m-2 p-2" style="width:18em">
                 <img src="${element.url_image ? element.url_image : imagenNoEncontrada}" class="card-img-top p-1 text-center" alt="${element.name}" width="230px" height="270px">
@@ -21,6 +31,8 @@ async function cargarProductos (id) {
             </div>
         `
         });
+    }).catch((error) => {
+        alert(error)
     });
 };
 
@@ -28,13 +40,16 @@ async function cargarProductos (id) {
 async function getCategorias() {
     await axios.get('/categorias').then((respuesta) => {
         categorias.innerHTML = "";
-        respuesta.data.forEach(element => {
+        let listaOrdenada = respuesta.data.sort(ordenar);
+        listaOrdenada.forEach(element => {
             categorias.innerHTML += `
            <li class="nav-item">
-                <a  class="nav-link" href="#" onclick="cargarProductos(${element.id})">${element.name}</a>
+                <a  class="nav-link" href="#" onclick="cargarProductos(${element.id})">${element.name.toUpperCase()}</a>
             </li>
            `
         });
+    }).catch((error) => {
+        alert(error)
     });
 };
 
@@ -49,7 +64,8 @@ const buscarProducto = async () => {
             if (respuesta.data.length == 0) {
                 contenedor.innerHTML = "<p>No se encontraron productos</p>";
             } else {
-                respuesta.data.forEach(element => {
+                let listaOrdenada = respuesta.data.sort(ordenar);
+                listaOrdenada.forEach(element => {
                     contenedor.innerHTML += `
                     <div class="card m-2 p-2" style="width:18em">
                         <img src="${element.url_image}" class="card-img-top p-1 text-center" alt="${element.name}" width="230px" height="270px">
@@ -61,6 +77,8 @@ const buscarProducto = async () => {
                 `
                 });
             };
+        }).catch((error) => {
+            alert(error)
         });
     };
 };
