@@ -1,15 +1,16 @@
-Proyecto: tienda.
+# Proyecto: Tienda
 
 Incluye frontend y backend. Al ingresar a la url se descarga el front.
 
-FRONT:
+## FRONT
 
 El front se comunica con el api REST del backend mediante tres endpoints: 
 
+```
 - /categorias
 - /buscar
 - /productos
-
+```
 El detalle de los endpoints se explica en la sección backend.
 
 Al inicializar el front se llama al endpoint /categorias para cargar las categorías de los productos y mostrarlas en la parte superior de la pantalla.
@@ -18,67 +19,52 @@ Una vez que se han cargado las categorías se llama al endpoint /productos para 
 
 Al hacer click en una categoría se cargan los productos filtrados según la categoría.
 
-Al escribir en el input parte del nombre o nombre completo de algún producto y hacer click en el botón buscar se cargan los productos que coincidan con la busqueda,
-esto se realiza llamando al endpoint /buscar pasandole como parámetro el término buscado.
+Al escribir en el input parte del nombre o nombre completo de algún producto y hacer click en el botón buscar se cargan los productos que coincidan con la búsqueda,
+esto se realiza llamando al endpoint /buscar pasándole como parámetro el término buscado.
+## BACKEND
 
-BACKEND:
+### GET categorias
 
-GET categorias
+Descripción: Devuelve las categorías de los productos.
 
-Descripcion: Devuelve las categorías de los productos.
+Parámetros: 
+```No necesita parámetros.```
 
-/categorias
-
-Parámetros:
-
-No necesita parámetros.
+Ejemplo:
+```
+GET /categorias
+```
 
 Respuesta:
 
-[
-    {
-        "id": 1,
-        "name": "bebida energetica"
-    },
-    {
-        "id": 2,
-        "name": "pisco"
-    },
-    {
-        "id": 3,
-        "name": "ron"
-    },
-    {
-        "id": 4,
-        "name": "bebida"
-    },
-    {
-        "id": 5,
-        "name": "snack"
-    },
-    {
-        "id": 6,
-        "name": "cerveza"
-    },
-    {
-        "id": 7,
-        "name": "vodka"
-    }
-]
-
-GET productos
+```JavaScript
+[ { "id": 1, "name": "bebida energetica" },
+  { "id": 2, "name": "pisco" },
+  { "id": 3, "name": "ron" },
+  { "id": 4, "name": "bebida" },
+  { "id": 5, "name": "snack" }, 
+  { "id": 6, "name": "cerveza" }, 
+  { "id": 7, "name": "vodka" } ]
+```
+### GET productos
 
 Descripción: Devuelve los productos filtrados por categoría o todos los productos.
 
 Parámetros:
-	- categoria: El id (numérico) de la categoria de algún producto o la palabra "all".
+```
+	- categoria: El id (numérico) de la categoria de algún producto o la palabra "all"
+```
 	
 Ejemplos:
-GET /productos/1 devuelve los productos correspondientes a la categoría 1.
-GET /productos/all devuelve todos los productos.
+```
+GET /productos/1 devuelve los productos correspondientes a la categoría 1
+```
+```
+GET /productos/all devuelve todos los productos
+```
 
 Respuesta:
-
+```
 [
     {
         "id": 5,
@@ -97,20 +83,22 @@ Respuesta:
         "category": 1
     }
 ]
-
-GET buscar
+```
+### GET buscar
 
 Descripción: Devuelve los productos que coincidan con el término buscado.
 
 Parámetros:
-	- busqueda: El término a buscar.
+
+	- busqueda: El término a buscar
 	
 Ejemplo:
-
-GET /buscar?busqueda=alto%20del devuelve los productos cuyo nombre contenga "alto del".
-
+```
+GET /buscar?busqueda=alto%20del devuelve los productos cuyo nombre contenga "alto del"
+```
 Respuesta:
 
+```
 [
     {
         "id": 8,
@@ -129,3 +117,4 @@ Respuesta:
         "category": 2
     }
 ]
+```
