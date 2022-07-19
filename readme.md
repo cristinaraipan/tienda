@@ -21,6 +21,8 @@ Al hacer click en una categoría se cargan los productos filtrados según la cat
 
 Al escribir en el input parte del nombre o nombre completo de algún producto y hacer click en el botón buscar se cargan los productos que coincidan con la búsqueda,
 esto se realiza llamando al endpoint /buscar pasándole como parámetro el término buscado.
+
+En caso de que la imagen de algún producto no exista se mostrará una imagen por defecto.
 ## BACKEND
 
 ### GET categorias
