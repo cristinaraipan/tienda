@@ -15,7 +15,7 @@ var pool = mysql.createPool({
     password: 'bsale_test',
     database: 'bsale_test',
 });
-app.listen(3000, () => console.log("Servidor 3000 proyecto activo http://localhost:3000"));
+app.listen(process.env.PORT || 3000, () => console.log("Servidor 3000 proyecto activo http://localhost:3000"));
 
 app.get('/', (req, res) => {
     res.sendFile(`${__dirname}/front-end/home.html`);
